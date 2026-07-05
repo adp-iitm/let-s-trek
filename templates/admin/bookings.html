@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">All Bookings</h3>
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Trekker</th>
+            <th>Trek</th>
+            <th>Booked On</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ booking.trekker.full_name }}</td>
+            <td>{{ booking.trek.trek_title }}</td>
+            <td>{{ booking.booked_on.strftime('%d-%m-%Y') }}</td>
+            <td>{{ booking.booking_status }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="4">No bookings yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

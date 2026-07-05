@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Staff Members</h3>
+
+<form method="GET" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="search_term" class="form-control" placeholder="Search staff" value="{{ search_term }}">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Approval Status</th>
+            <th>Blacklisted</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for staff_member in staff_list %}
+        <tr>
+            <td>{{ staff_member.full_name }}</td>
+            <td>{{ staff_member.email }}</td>
+            <td>{{ staff_member.phone_number }}</td>
+            <td>{{ staff_member.approval_status }}</td>
+            <td>{{ "Yes" if staff_member.blacklist_status else "No" }}</td>
+            <td>
+                {% if staff_member.approval_status == "pending" %}
+                <a href="{{ url_for('admin.approve_staff', user_id=staff_member.id) }}" class="btn btn-sm btn-success">Approve</a>
+                <a href="{{ url_for('admin.reject_staff', user_id=staff_member.id) }}" class="btn btn-sm btn-danger">Reject</a>
+                {% endif %}
+                <a href="{{ url_for('admin.toggle_blacklist', user_id=staff_member.id) }}" class="btn btn-sm btn-warning">
+                    {{ "Unblacklist" if staff_member.blacklist_status else "Blacklist" }}
+                </a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No staff members found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

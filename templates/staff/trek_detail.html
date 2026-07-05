@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">{{ trek.trek_title }}</h3>
+<p>
+    Destination: {{ trek.destination }}<br>
+    Difficulty: {{ trek.difficulty_level }}<br>
+    Duration: {{ trek.duration_days }} days<br>
+    Current Status: {{ trek.current_status }}
+</p>
+
+<div class="row">
+    <div class="col-md-5">
+        <h5>Update Slots</h5>
+        <form method="POST" action="{{ url_for('staff.update_slots', trek_id=trek.id) }}" class="row g-2">
+            <div class="col-8">
+                <input type="number" name="remaining_slots" class="form-control" value="{{ trek.remaining_slots }}" min="0" required>
+            </div>
+            <div class="col-4">
+                <button type="submit" class="btn btn-success">Update</button>
+            </div>
+        </form>
+
+        <h5 class="mt-4">Trek Status</h5>
+        <a href="{{ url_for('staff.set_status', trek_id=trek.id, new_status='Started') }}" class="btn btn-warning">Mark Started</a>
+        <a href="{{ url_for('staff.set_status', trek_id=trek.id, new_status='Completed') }}" class="btn btn-secondary">Mark Completed</a>
+    </div>
+</div>
+
+<h5 class="mt-4">Participants</h5>
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Booked On</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in participants %}
+        <tr>
+            <td>{{ booking.trekker.full_name }}</td>
+            <td>{{ booking.trekker.phone_number }}</td>
+            <td>{{ booking.booked_on.strftime('%d-%m-%Y') }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="3">No participants yet.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

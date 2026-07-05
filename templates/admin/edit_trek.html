@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Edit Trek</h3>
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Trek Title</label>
+        <input type="text" name="trek_title" class="form-control" value="{{ trek.trek_title }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Destination</label>
+        <input type="text" name="destination" class="form-control" value="{{ trek.destination }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Difficulty Level</label>
+        <select name="difficulty_level" class="form-select">
+            <option value="Easy" {% if trek.difficulty_level == "Easy" %}selected{% endif %}>Easy</option>
+            <option value="Moderate" {% if trek.difficulty_level == "Moderate" %}selected{% endif %}>Moderate</option>
+            <option value="Difficult" {% if trek.difficulty_level == "Difficult" %}selected{% endif %}>Difficult</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Duration (days)</label>
+        <input type="number" name="duration_days" class="form-control" value="{{ trek.duration_days }}" min="1" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Start Date</label>
+        <input type="date" name="start_date" class="form-control" value="{{ trek.start_date }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">End Date</label>
+        <input type="date" name="end_date" class="form-control" value="{{ trek.end_date }}" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Remaining Slots</label>
+        <input type="number" name="remaining_slots" class="form-control" value="{{ trek.remaining_slots }}" min="0" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Current Status</label>
+        <select name="current_status" class="form-select">
+            <option value="Open" {% if trek.current_status == "Open" %}selected{% endif %}>Open</option>
+            <option value="Started" {% if trek.current_status == "Started" %}selected{% endif %}>Started</option>
+            <option value="Completed" {% if trek.current_status == "Completed" %}selected{% endif %}>Completed</option>
+            <option value="Closed" {% if trek.current_status == "Closed" %}selected{% endif %}>Closed</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <textarea name="description" class="form-control" rows="3">{{ trek.description }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Save Changes</button>
+</form>
+{% endblock %}

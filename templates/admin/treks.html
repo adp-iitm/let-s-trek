@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h3>Manage Treks</h3>
+    <a href="{{ url_for('admin.add_trek') }}" class="btn btn-success">Add New Trek</a>
+</div>
+
+<form method="GET" class="row g-2 mb-3">
+    <div class="col-md-4">
+        <input type="text" name="search_term" class="form-control" placeholder="Search treks" value="{{ search_term }}">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-success">Search</button>
+    </div>
+</form>
+
+<table class="table table-bordered bg-white">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Destination</th>
+            <th>Difficulty</th>
+            <th>Slots</th>
+            <th>Status</th>
+            <th>Guide</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for trek in treks %}
+        <tr>
+            <td>{{ trek.trek_title }}</td>
+            <td>{{ trek.destination }}</td>
+            <td>{{ trek.difficulty_level }}</td>
+            <td>{{ trek.remaining_slots }}</td>
+            <td>{{ trek.current_status }}</td>
+            <td>{{ trek.guide.full_name if trek.guide else "Not assigned" }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_trek', trek_id=trek.id) }}" class="btn btn-sm btn-primary">Edit</a>
+                <a href="{{ url_for('admin.assign_staff', trek_id=trek.id) }}" class="btn btn-sm btn-warning">Assign</a>
+                <a href="{{ url_for('admin.delete_trek', trek_id=trek.id) }}" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">No treks found.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

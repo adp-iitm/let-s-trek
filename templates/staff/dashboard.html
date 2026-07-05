@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Assigned Treks</h3>
+<div class="row">
+    {% for trek in assigned_treks %}
+    <div class="col-md-4">
+        <div class="card trek-card">
+            <div class="card-body">
+                <h5 class="card-title">{{ trek.trek_title }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ trek.destination }}</h6>
+                <p class="card-text">
+                    Status: {{ trek.current_status }}<br>
+                    Slots left: {{ trek.remaining_slots }}
+                </p>
+                <a href="{{ url_for('staff.trek_detail', trek_id=trek.id) }}" class="btn btn-success">Manage</a>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p>No treks assigned to you yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

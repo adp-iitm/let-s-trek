@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="mb-3">Assign Staff to {{ trek.trek_title }}</h3>
+<form method="POST">
+    <div class="mb-3">
+        <label class="form-label">Select Staff Member</label>
+        <select name="staff_id" class="form-select">
+            {% for staff_member in approved_staff %}
+            <option value="{{ staff_member.id }}" {% if trek.guide_id == staff_member.id %}selected{% endif %}>
+                {{ staff_member.full_name }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Assign</button>
+</form>
+{% endblock %}
