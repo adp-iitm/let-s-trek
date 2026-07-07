@@ -4,8 +4,6 @@ from flask_login import login_required, current_user
 from models import db, Trek, Booking
 
 staff_blueprint = Blueprint("staff", __name__, url_prefix="/staff")
-
-
 def staff_only(view_function):
     @wraps(view_function)
     def wrapper(*args, **kwargs):

@@ -6,7 +6,6 @@ from models import db, User, Trek, Booking
 
 admin_blueprint = Blueprint("admin", __name__, url_prefix="/admin")
 
-
 def admin_only(view_function):
     @wraps(view_function)
     def wrapper(*args, **kwargs):

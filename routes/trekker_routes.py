@@ -5,7 +5,6 @@ from models import db, Trek, Booking
 
 trekker_blueprint = Blueprint("trekker", __name__)
 
-
 def trekker_only(view_function):
     @wraps(view_function)
     def wrapper(*args, **kwargs):
@@ -14,7 +13,6 @@ def trekker_only(view_function):
             return redirect(url_for("auth.login"))
         return view_function(*args, **kwargs)
     return wrapper
-
 
 @trekker_blueprint.route("/treks")
 def browse_treks():

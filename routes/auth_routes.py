@@ -5,7 +5,6 @@ from models import db, User
 
 auth_blueprint = Blueprint("auth", __name__)
 
-
 @auth_blueprint.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
