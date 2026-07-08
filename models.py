@@ -3,8 +3,6 @@ from flask_login import UserMixin
 from datetime import datetime
 
 db = SQLAlchemy()
-
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(100), nullable=False)
@@ -17,8 +15,6 @@ class User(db.Model, UserMixin):
 
     treks_guided = db.relationship("Trek", backref="guide", lazy=True)
     bookings = db.relationship("Booking", backref="trekker", lazy=True)
-
-
 class Trek(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     trek_title = db.Column(db.String(120), nullable=False)
