@@ -22,19 +22,19 @@ db.init_app(app)
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.init_app(app)
-
-
 @login_manager.user_loader
+
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(admin_blueprint)
 app.register_blueprint(staff_blueprint)
 app.register_blueprint(trekker_blueprint)
 @app.route("/")
+
 def home_page():
     return redirect(url_for("trekker.browse_treks"))
-
 
 def create_seed_data():
     if User.query.filter_by(email="aditya@gmail.com").first() is None:

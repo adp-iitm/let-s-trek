@@ -16,7 +16,6 @@ def staff_only(view_function):
         return view_function(*args, **kwargs)
     return wrapper
 
-
 @staff_blueprint.route("/dashboard")
 @login_required
 @staff_only

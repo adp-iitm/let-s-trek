@@ -12,9 +12,9 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(20), nullable=False)
     approval_status = db.Column(db.String(20), default="approved")
     blacklist_status = db.Column(db.Boolean, default=False)
-
     treks_guided = db.relationship("Trek", backref="guide", lazy=True)
     bookings = db.relationship("Booking", backref="trekker", lazy=True)
+    
 class Trek(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     trek_title = db.Column(db.String(120), nullable=False)
@@ -27,9 +27,7 @@ class Trek(db.Model):
     current_status = db.Column(db.String(20), default="Open")
     description = db.Column(db.Text)
     guide_id = db.Column(db.Integer, db.ForeignKey("user.id"))
-
     bookings = db.relationship("Booking", backref="trek", lazy=True)
-
 
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
