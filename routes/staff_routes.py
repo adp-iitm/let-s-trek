@@ -23,7 +23,6 @@ def dashboard():
     assigned_treks = Trek.query.filter_by(guide_id=current_user.id).all()
     return render_template("staff/dashboard.html", assigned_treks=assigned_treks)
 
-
 @staff_blueprint.route("/trek/<int:trek_id>")
 @login_required
 @staff_only
@@ -34,7 +33,6 @@ def trek_detail(trek_id):
         return redirect(url_for("staff.dashboard"))
     participants = Booking.query.filter_by(trek_id=trek.id, booking_status="Confirmed").all()
     return render_template("staff/trek_detail.html", trek=trek, participants=participants)
-
 
 @staff_blueprint.route("/trek/<int:trek_id>/update_slots", methods=["POST"])
 @login_required
@@ -48,7 +46,6 @@ def update_slots(trek_id):
     db.session.commit()
     flash("Slots updated.")
     return redirect(url_for("staff.trek_detail", trek_id=trek.id))
-
 
 @staff_blueprint.route("/trek/<int:trek_id>/set_status/<string:new_status>")
 @login_required

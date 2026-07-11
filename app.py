@@ -119,14 +119,11 @@ def create_seed_data():
             ),
         ]
         db.session.add_all(sample_treks)
-
     db.session.commit()
-
 
 with app.app_context():
     db.create_all()
     create_seed_data()
-
 
 if __name__ == "__main__":
     app.run(debug=True)
