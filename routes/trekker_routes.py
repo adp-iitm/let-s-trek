@@ -19,7 +19,6 @@ def browse_treks():
     search_term = request.args.get("search_term", "")
     location_filter = request.args.get("location_filter", "")
     difficulty_filter = request.args.get("difficulty_filter", "")
-
     query = Trek.query.filter_by(current_status="Open")
 
     if search_term:
@@ -37,7 +36,6 @@ def browse_treks():
         location_filter=location_filter,
         difficulty_filter=difficulty_filter,
     )
-
 
 @trekker_blueprint.route("/treks/<int:trek_id>/book", methods=["POST"])
 @login_required
@@ -60,14 +58,12 @@ def book_trek(trek_id):
     flash("Trek booked successfully.")
     return redirect(url_for("trekker.my_bookings"))
 
-
 @trekker_blueprint.route("/my-bookings")
 @login_required
 @trekker_only
 def my_bookings():
     bookings = Booking.query.filter_by(trekker_id=current_user.id).all()
     return render_template("trekker/my_bookings.html", bookings=bookings)
-
 
 @trekker_blueprint.route("/profile", methods=["GET", "POST"])
 @login_required

@@ -13,14 +13,12 @@ def register():
         password = request.form.get("password")
         phone_number = request.form.get("phone_number")
         role = request.form.get("role")
-
         existing_user = User.query.filter_by(email=email).first()
         if existing_user:
             flash("An account with this email already exists.")
             return redirect(url_for("auth.register"))
 
         approval_status = "pending" if role == "staff" else "approved"
-
         new_user = User(
             full_name=full_name,
             email=email,
@@ -38,16 +36,13 @@ def register():
         else:
             flash("Registration successful. You can now log in.")
         return redirect(url_for("auth.login"))
-
     return render_template("register.html")
-
 
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
-
         account = User.query.filter_by(email=email).first()
 
         if not account or not check_password_hash(account.password_hash, password):
@@ -72,7 +67,6 @@ def login():
             return redirect(url_for("trekker.browse_treks"))
 
     return render_template("login.html")
-
 
 @auth_blueprint.route("/logout")
 @login_required

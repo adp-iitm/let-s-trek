@@ -15,7 +15,6 @@ def admin_only(view_function):
         return view_function(*args, **kwargs)
     return wrapper
 
-
 @admin_blueprint.route("/dashboard")
 @login_required
 @admin_only
@@ -34,7 +33,6 @@ def dashboard():
         pending_staff=pending_staff,
     )
 
-
 @admin_blueprint.route("/treks")
 @login_required
 @admin_only
@@ -45,7 +43,6 @@ def manage_treks():
     else:
         treks = Trek.query.all()
     return render_template("admin/treks.html", treks=treks, search_term=search_term)
-
 
 @admin_blueprint.route("/treks/add", methods=["GET", "POST"])
 @login_required
@@ -69,7 +66,6 @@ def add_trek():
         return redirect(url_for("admin.manage_treks"))
     return render_template("admin/add_trek.html")
 
-
 @admin_blueprint.route("/treks/edit/<int:trek_id>", methods=["GET", "POST"])
 @login_required
 @admin_only
@@ -90,7 +86,6 @@ def edit_trek(trek_id):
         return redirect(url_for("admin.manage_treks"))
     return render_template("admin/edit_trek.html", trek=trek)
 
-
 @admin_blueprint.route("/treks/delete/<int:trek_id>")
 @login_required
 @admin_only
@@ -100,7 +95,6 @@ def delete_trek(trek_id):
     db.session.commit()
     flash("Trek deleted.")
     return redirect(url_for("admin.manage_treks"))
-
 
 @admin_blueprint.route("/treks/assign/<int:trek_id>", methods=["GET", "POST"])
 @login_required
@@ -115,7 +109,6 @@ def assign_staff(trek_id):
         return redirect(url_for("admin.manage_treks"))
     return render_template("admin/assign_staff.html", trek=trek, approved_staff=approved_staff)
 
-
 @admin_blueprint.route("/staff")
 @login_required
 @admin_only
@@ -127,7 +120,6 @@ def view_staff():
     staff_list = query.all()
     return render_template("admin/staff.html", staff_list=staff_list, search_term=search_term)
 
-
 @admin_blueprint.route("/staff/approve/<int:user_id>")
 @login_required
 @admin_only
@@ -138,7 +130,6 @@ def approve_staff(user_id):
     flash("Staff approved.")
     return redirect(url_for("admin.view_staff"))
 
-
 @admin_blueprint.route("/staff/reject/<int:user_id>")
 @login_required
 @admin_only
@@ -148,7 +139,6 @@ def reject_staff(user_id):
     db.session.commit()
     flash("Staff rejected.")
     return redirect(url_for("admin.view_staff"))
-
 
 @admin_blueprint.route("/users")
 @login_required
@@ -161,14 +151,12 @@ def view_users():
     users_list = query.all()
     return render_template("admin/users.html", users_list=users_list, search_term=search_term)
 
-
 @admin_blueprint.route("/bookings")
 @login_required
 @admin_only
 def view_bookings():
     bookings = Booking.query.all()
     return render_template("admin/bookings.html", bookings=bookings)
-
 
 @admin_blueprint.route("/blacklist/<int:user_id>")
 @login_required

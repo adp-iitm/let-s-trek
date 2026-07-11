@@ -4,7 +4,6 @@ from werkzeug.security import generate_password_hash
 from datetime import date
 import os
 from models import db, User, Trek
-
 from routes.auth_routes import auth_blueprint
 from routes.admin_routes import admin_blueprint
 from routes.staff_routes import staff_blueprint
@@ -48,7 +47,6 @@ def create_seed_data():
             blacklist_status=False,
         )
         db.session.add(admin_account)
-
     if Trek.query.count() == 0:
         sample_treks = [
             Trek(
